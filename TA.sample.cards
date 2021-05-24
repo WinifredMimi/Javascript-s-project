@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Playing Cards</title>
+<style type="text/css">
+<!--
+#content {font-size: 36pt; font-weight:bolder; color:red; text-align:center;}
+#cardPool {
+display: none;
+margin: 10px auto;
+}
+#canvas {
+padding:50px;
+background-color: green;
+width: 500px;
+height: 150px;
+margin: 10px auto;
+}
+#btnStart, #btnStop {
+padding: 10px 40px;
+font-size: 16pt;
+}
+img {
+margin: 10px;
+vertical-align:top;
+}
+img:hover {
+padding-top:5px;
+}
+-->
+</style>
+<script type="text/javascript">
+<!--
+
+var cardArr=new Array();
+var cArr=new Array();
+var isSelected = new Array();
+var cardPool;
+window.onload=function() {
+  for (var i=0;i<5;i++) {
+     cardArr[i]=document.getElementById(i);
+     cardArr[i].onclick=cardShow;
+  }
+ cardPool = document.getElementById("cardPool");
+ document.getElementById("btnStart").onclick=start;
+ document.getElementById("btnStop").onclick=stop;
+}
+
+function start() {
+cardPool.style.display="block";
+for (var i=0;i<55;i++)
+    isSelected[i]=false;
+for (var i=0;i<5;i++) {
+cardArr[i].src="pcards/b1fv.png";
+cardArr[i].onclick=cardShow;
+  isDone=false;
+  while(!isDone) {
+      var num = myRandom(1,54);
+     if (isSelected[num])
+              continue;
+     isSelected[num]=true;
+     cArr[i]=num;
+     isDone=true;
+   }
+}
+}
+function stop() {
+  cardPool.style.display="none";
+}
+
+function cardShow() {
+this.onclick=cardHide;
+this.src="pcards/"+cArr[this.id]+".png";
+}
+function cardHide() {
+this.onclick=cardShow;
+this.src="pcards/b1fv.png";
+}
+function myRandom(a, b) {
+  return Math.floor(a+Math.random()*(b-a+1));
+}
+function shffle() {
+}
+//-->
+</script>
+</head>
+<body>
+<div id="content">
+<button id="btnStart">發 牌</button> <button id="btnStop">收 牌</button> 
+<div id="canvas">
+<div id="cardPool">
+<script type="text/javascript">
+for (var i=0;i<5;i++)
+  document.write("<img id=\""+i+"\" src=\"pcards/b1fv.png\" />");
+</script>
+</div>
+</div>
+</div>
+</body>
+</html>
