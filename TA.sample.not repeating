@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>網頁標題</title>
+<style type="text/css">
+<!--
+#content {font-size: 36pt; font-weight:bolder; color:red; text-align:center;} /*可以不要，還是有數字呈現
+-->
+</style>
+<script type="text/javascript">
+<!--
+// This program is incorrect. Please modify it!
+var arr1 = new Array(53);  //設定array 1-52
+
+window.onload=function() {
+var str1="";
+var r;
+for (var i=1;i<6;i++) {  //只顯示5個
+ 
+ do {
+  r = myRandom(1,52);    //從1-52裡面隨意抽取
+} while(arr1[r]);
+arr1[r]=1;
+str1 += r+" ";
+document.getElementById("content").innerHTML=str1;
+}
+}
+function myRandom(a, b) {
+  return Math.floor(a+Math.random()*(b-a+1));
+}
+
+//-->
+</script>
+</head>
+<body>
+<div id="content"></div>
+</body>
+</html>
