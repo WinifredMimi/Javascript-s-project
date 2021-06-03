@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>event</title>
+<style type="text/css">
+.mark {
+position: absolute;
+}
+
+</style>
+<script type="text/javascript">
+window.onload=function() {
+	$("ncnu").onclick=putMark;
+};
+function putMark(e){
+	//e.clientx.e.clientY //alert(e.clientX+","+e.clientY);
+    var mark = document.createElement("img");
+    mark.src = "mark.png";
+    mark.className ="mark";
+    //mark.width, mark.height
+    mark.style.left =(e.clicentX-0.5*mark.width)+"px";//mark往左移一半
+    mark.style.top =(e.clicentY-mark.height)+"px";
+    $("map").appendChild(mark);
+}
+function $(id) {
+   return document.getElementById(id);
+}
+</script> 
+</head>
+<body>
+<div id="map">
+<img id="ncnu" src="ncnu.png" alt="ncnu" /></div>
+</body>
+</html>
