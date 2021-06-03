@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>event</title>
+<style type="text/css">
+.car {
+position: absolute;
+}
+</style>
+<script type="text/javascript">
+var w=window.innerWidth;
+var h=window.innerHeight;
+var car; //宣告car
+window.onload=function() {
+    car=$("car1");
+    car.style.left=(w-car.width)+"px";
+    car.style.top =(0.5*h-0.5*car.height)+"px";
+    car.onclick=run;
+};
+function run(){
+	var lft=parseInt(car.style.left);
+	lft -=10;
+	/*
+	if ((lft+car.width)<0) 
+		lft=w;
+	*/
+	car.style.left=lft+"px";
+	if (lft>0)
+	window.setTimeout("run()",10);
+}
+function getCStyle(id, property) {
+   var cssObj= window.getComputedStyle($(id), null);
+   return cssObj.getPropertyValue(property);
+}
+function $(id) {
+   return document.getElementById(id);
+}
+</script> 
+</head>
+<body>
+<div id="cont">
+<img id="car1" src="car.png" class="car" />
+</div>
+</body>
+</html>
