@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>月曆</title>
+<style type="text/css">
+#TT{
+	padding: 50px;
+	font-size: 60px;
+	color: #E36F66;
+	text-shadow: 5px 5px 5px #FCBD77;
+	font-weight: 700;
+}
+#Y-M{
+	font-size: 30px;
+}
+#days th {
+	height: 40px;
+	text-align: center;
+}
+#SUN {
+	color: red;
+}
+#STR{
+	color: red;
+}
+#list{
+	text-align: center;
+	display: flex; flex-wrap: wrap;
+	width: 700px;
+}
+#list>.date{
+	text-align: center;
+	width: 100px;
+	height: 50px;
+}
+#list>.fadeout{
+	opacity: 0;
+}
+</style>
+
+</head>
+<body>
+<p id="TT"> 月  曆</p>
+<button onclick="clickpre();">  <<  </button>
+<p id="Y-M"> </p>
+<button onclick="clicknext();">  >>  </button></br>
+<table>
+<tr id="days">
+<th id="SUN">&emsp;&emsp;&ensp;日&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+<th>一&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+<th>二&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+<th>三&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+<th>四&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+<th>五&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+<th id="STR">六</th>
+</tr>
+</table></br>
+<div id="list"></div>
+
+
+<script type="text/javascript">
+	let time=null;
+	function init(){
+		time={
+			current:new Date()
+		};
+		render();
+	}
+	//上個月
+	function clickpre(){
+		time.current.setMonth(time.current.getMonth()-1);
+		render();
+	}
+	//下個月
+	function clicknext(){
+		time.current.setMonth(time.current.getMonth()+1);
+		render();
+	}
+
+	function render(){
+		let head=document.querySelector("#Y-M");
+		head.textContent=time.current.getFullYear()+"  年  "+(time.current.getMonth()+1)+"  月  ";
+		let list=document.querySelector("#list");
+		list.innerHTML="";//清空
+		//找到第一天
+		let firstDate=new Date(time.current.getFullYear(),time.current.getMonth(),1);
+		//往前算到禮拜日
+		let date=new Date(firstDate.getFullYear(),firstDate.getMonth(),1);
+		date.setDate(date.getDate()-date.getDay());
+		//上個月日期
+		while(date<firstDate){
+			renderDate(date,list);
+			date.setDate(date.getDate()+1);
+		}
+		//這個月的日期
+		while(date.getMonth()===time.current.getMonth()){
+			renderDate(date,list);
+			date.setDate(date.getDate()+1);
+		}
+		//下個月日期
+		while(date.getDay()>0){
+			renderDate(date,list);
+			date.setDate(date.getDate()+1);
+		}
+
+	}
+	function renderDate(date,list){
+		let cell = document.createElement("div");
+		cell.className="date"+(date.getMonth()===time.current.getMonth()?"":" fadeout");
+		cell.textContent=date.getDate();
+		list.appendChild(cell);
+	}
+	init();
+</script>
+</body>
+</html>
